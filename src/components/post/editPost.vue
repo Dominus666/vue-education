@@ -64,7 +64,6 @@ export default {
     onCancel () {
       this.editTitle = this.post.title
       this.editDescription = this.post.description
-      console.log(this.post.title)
       this.dialog = false
     },
     onSave () {

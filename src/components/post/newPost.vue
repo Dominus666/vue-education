@@ -33,10 +33,28 @@
                     </v-form>
                   </v-card-text>
                   <v-card-actions>
+                    <label>
+                      <v-btn @click="upload">
+                        Upload
+                        <v-icon>cloud_upload</v-icon>
+                      </v-btn>
+                      <input
+                        ref="fileInput" 
+                        type="file" 
+                        style="display: none;" 
+                        accept="image/*"
+                        @change="onChangeFile"
+                       >
+                    </label>
                     <v-spacer></v-spacer>
                     <v-btn :disabled="!valid" @click="createPost">Create Post</v-btn>
                   </v-card-actions>
                 </v-card>
+                  <v-layout>
+                    <v-flex>
+                      <img :src="imgSrc" height="200px" v-if="imgSrc">
+                  </v-flex>
+                </v-layout>
               </v-flex>
             </v-layout>
           </v-container>
@@ -51,16 +69,31 @@ export default {
   data: () => ({
     valid: false,
     title: '',
-    description: ''
+    description: '',
+    img: null,
+    imgSrc: ""
   }),
   methods: {
     createPost () {
       const post = {
         title: this.title,
-        description: this.description
+        description: this.description,
       }
       this.$store.dispatch('createPost', post)
       this.$router.push('/')
+    },
+    upload () {
+      this.$refs.fileInput.click()
+    },
+    onChangeFile (e) {
+      const file = e.target.files[0]
+      const reader = new FileReader()
+      reader.onload = e => {
+        this.imgSrc = reader.result
+      }
+      reader.readAsDataURL(file)
+      this.img = file
+      console.log(this.imgSrc)
     }
   }
 }
