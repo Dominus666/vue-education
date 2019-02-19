@@ -18,7 +18,7 @@ new Vue({
       authDomain: "my-blog-c2c89.firebaseapp.com",
       databaseURL: "https://my-blog-c2c89.firebaseio.com",
       projectId: "my-blog-c2c89",
-      storageBucket: "",
+      storageBucket: "my-blog-c2c89.appspot.com",
       messagingSenderId: "725672705260"
     };
     fb.initializeApp(config)

@@ -78,6 +78,7 @@ export default {
       const post = {
         title: this.title,
         description: this.description,
+        img: this.img
       }
       this.$store.dispatch('createPost', post)
       this.$router.push('/')

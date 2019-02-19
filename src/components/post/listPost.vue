@@ -3,7 +3,7 @@
     <v-flex xs12 v-for="(post, i) in posts" :key="i">
       <v-card class="card-custom">
         <v-img
-          :src="post.img"
+          :src="post.imgSrc"
           higth="350px"
         ></v-img>
 

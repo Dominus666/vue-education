@@ -3,7 +3,7 @@
     <section mt-3 elevation-10>
       <v-layout row wrap>
         <v-flex xs12 lg6>
-          <img src="../../img/beer1.jpg">
+          <img :src="posts.imgSrc">
         </v-flex>
         <v-flex xs12 lg6>
           <div class="post">
