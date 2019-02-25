@@ -43,6 +43,7 @@
       sideNav: false,
       links: [
         {title: 'Home', icon: 'home', url: '/'},
+        {title: 'calculator', icon: 'weekend', url: '/calc'},
         {title: 'New Post', icon: 'add', url: '/newpost'},
         {title: 'List', icon: 'list', url: '/list'}
       ]

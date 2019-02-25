@@ -47,7 +47,7 @@
                        >
                     </label>
                     <v-spacer></v-spacer>
-                    <v-btn :disabled="!valid" @click="createPost">Create Post</v-btn>
+                    <v-btn :disabled="!valid || loading || !img" :loading="loading" @click="createPost">Create Post</v-btn>
                   </v-card-actions>
                 </v-card>
                   <v-layout>
@@ -81,7 +81,10 @@ export default {
         img: this.img
       }
       this.$store.dispatch('createPost', post)
-      this.$router.push('/')
+      .then(() => {
+        this.$router.push('/')
+      })
+      .catch(() => {})
     },
     upload () {
       this.$refs.fileInput.click()
@@ -89,12 +92,16 @@ export default {
     onChangeFile (e) {
       const file = e.target.files[0]
       const reader = new FileReader()
-      reader.onload = e => {
+      reader.onload = () => {
         this.imgSrc = reader.result
       }
       reader.readAsDataURL(file)
       this.img = file
-      console.log(this.imgSrc)
+    }
+  },
+  computed: {
+    loading () {
+      return this.$store.getters.loading
     }
   }
 }

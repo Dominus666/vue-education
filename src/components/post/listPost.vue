@@ -28,8 +28,6 @@
 <script>
   import EditPost from './editPost'
   export default {
-    data: () => ({
-    }),
     methods: {
       deletePost (post) {
         this.$store.dispatch('deletePost', post)

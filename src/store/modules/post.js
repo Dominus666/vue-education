@@ -24,23 +24,24 @@ export default {
     }
   },
   actions: {
-    async createPost (context, payload) {
+    async createPost ({commit}, payload) {
+      commit('setLoading', true)
       const img = payload.img
       const newPost = {
         title: payload.title,
         description: payload.description
       }
-      console.log(payload)
       const post = await fb.database().ref('posts').push(payload)
       const imgExt = img.name.slice(img.name.lastIndexOf('.'))
       const fileData = await fb.storage().ref(`posts/${post.key}.${imgExt}`).put(img)
       const imgSrc = await fb.storage().ref().child(fileData.ref.fullPath).getDownloadURL()
       await fb.database().ref('posts').child(post.key).update({ imgSrc })
-      context.commit('createPost', {
+      commit('createPost', {
         ...newPost,
         id: post.key,
         imgSrc
       });
+      commit('setLoading', false)
     },
     async deletePost (context, payload) {
       const deletePost = await fb.database().ref('posts').once('value')
@@ -57,6 +58,7 @@ export default {
       context.commit('updatePost', payload)
     },
     async fetchPosts({commit}) {
+      commit('setLoading', true)
       const resultPosts = []
       const postVal = await fb.database().ref('posts').once('value')
       const posts = postVal.val()
@@ -71,6 +73,7 @@ export default {
         )
         commit('loadPosts', resultPosts)
       })
+      commit('setLoading', false)
     }
    },
   getters: {

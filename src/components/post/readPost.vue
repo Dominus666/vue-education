@@ -1,6 +1,7 @@
 <template>
   <v-container>
-    <section mt-3 elevation-10>
+    <v-progress-linear :indeterminate="true" v-if="loading" color="blue"></v-progress-linear>
+    <section mt-3 elevation-10 v-else>
       <v-layout row wrap>
         <v-flex xs12 lg6>
           <img :src="posts.imgSrc">
@@ -23,6 +24,9 @@ export default {
     posts () {
       const id = this.id
       return this.$store.getters.postById(id)
+    },
+    loading () {
+      return this.$store.getters.loading
     }
   }
 
