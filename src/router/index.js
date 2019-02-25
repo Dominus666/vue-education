@@ -1,10 +1,13 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import Register from '@/components/authentication/register'
+import Login from '@/components/authentication/login'
 import Home from '@/components/Home'
 import NewPost from '@/components/post/newPost'
 import Post from '@/components/post/readPost'
 import ListPost from '@/components/post/listPost'
 import AlcoCalc from '@/components/alcoCalc/alcoCalc'
+
 
 Vue.use(VueRouter)
 
@@ -14,6 +17,16 @@ export default new VueRouter ({
     path: '',
     name: 'home',
     component: Home
+  },
+  {
+    path: '/register',
+    name: 'register',
+    component: Register
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: Login
   },
   {
     path: '/newpost',

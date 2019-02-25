@@ -2,7 +2,7 @@
   <div>
     <v-progress-linear :indeterminate="true" v-if="loading" color="blue"></v-progress-linear>
     <v-layout row wrap v-else>
-      <v-flex xs12 sm6 md4 lg3 v-for="(post, i) in posts" :key="i">
+      <v-flex xs12 sm6 md4 lg3 m3 padding-cusstom v-for="(post, i) in posts" :key="i">
         <v-card class="card-custom">
           <v-img
             :src="post.imgSrc"
@@ -43,8 +43,10 @@
 </script>
 
 <style lang="scss">
+.padding-cusstom {
+  padding: 10px;
+}
   .card-custom {
-    margin: 10px;
     height: 100%;
     display: flex;
     flex-direction: column;

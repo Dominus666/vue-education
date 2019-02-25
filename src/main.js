@@ -23,5 +23,12 @@ new Vue({
     };
     fb.initializeApp(config)
     this.$store.dispatch('fetchPosts')
+    fb.auth().onAuthStateChanged(user => {
+      if(user) {
+        fb.database().ref(`users/${user.uid}`).once('value').then(user => {
+          this.$store.dispatch('autoLoginUser', user.val())
+        })
+      }
+    })
   }
 }).$mount('#app')
