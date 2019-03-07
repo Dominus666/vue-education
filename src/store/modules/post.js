@@ -32,8 +32,7 @@ export default {
         description: payload.description
       }
       const post = await fb.database().ref('posts').push(payload)
-      const imgExt = img.name.slice(img.name.lastIndexOf('.'))
-      const fileData = await fb.storage().ref(`posts/${post.key}.${imgExt}`).put(img)
+      const fileData = await fb.storage().ref(`posts/${post.key}`).put(img)
       const imgSrc = await fb.storage().ref().child(fileData.ref.fullPath).getDownloadURL()
       await fb.database().ref('posts').child(post.key).update({ imgSrc })
       commit('createPost', {
@@ -50,6 +49,7 @@ export default {
         deletePost.val()[key]
           if(payload == key) {
             fb.database().ref('posts').child(key).remove()
+            fb.storage().ref('posts').child(key).delete()
           }
         context.commit('deletePost', payload)
       })
