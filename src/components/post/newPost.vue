@@ -71,14 +71,15 @@ export default {
     title: '',
     description: '',
     img: null,
-    imgSrc: ""
+    imgSrc: "" 
   }),
   methods: {
     createPost () {
       const post = {
         title: this.title,
         description: this.description,
-        img: this.img
+        img: this.img,
+        userName: this.user.userName
       }
       this.$store.dispatch('createPost', post)
       .then(() => {
@@ -102,6 +103,9 @@ export default {
   computed: {
     loading () {
       return this.$store.getters.loading
+    },
+    user () {
+      return this.$store.getters.user
     }
   }
 }

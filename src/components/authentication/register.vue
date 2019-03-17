@@ -10,6 +10,13 @@
             <v-form ref="form" v-model="valid">
               <v-text-field 
                 prepend-icon="person" 
+                v-model="userName"
+                :rules="userRules"
+                label="UserName"
+              >
+              </v-text-field>
+              <v-text-field 
+                prepend-icon="person" 
                 v-model="email"
                 :rules="emailRules"
                 label="E-mail"
@@ -53,10 +60,15 @@
 export default {
   data () {
     return {
+      userName: '',
       email: '',
       password: '',
       confirmPassword: '',
       valid: false,
+      userRules: [
+        v => !!v || 'userName is required',
+        v => v.length <= 10 || 'userName must be less than 10 characters'
+      ],
       passwordRules: [
         v => !!v || 'Password is required',
         v => v.length >= 6 || 'Password must be equal or than 6 characters'
@@ -80,6 +92,7 @@ export default {
     onSubmit () {
       if(this.$refs.form.validate()) {
         const user = {
+          userName: this.userName,
           email: this.email,
           password: this.password
         }
