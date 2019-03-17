@@ -8,13 +8,12 @@ import Post from '@/components/post/readPost'
 import ListPost from '@/components/post/listPost'
 import AlcoCalc from '@/components/alcoCalc/alcoCalc'
 
-
 Vue.use(VueRouter)
 
 export default new VueRouter ({
 	routes: [
   {
-    path: '',
+    path: '/',
     name: 'home',
     component: Home
   },
@@ -48,7 +47,6 @@ export default new VueRouter ({
     name: 'alcoCalc',
     component: AlcoCalc
   }
-    
 	],
 	mode: 'history'
 })

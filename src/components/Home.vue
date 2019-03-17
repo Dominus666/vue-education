@@ -6,7 +6,7 @@
         <v-card class="card-custom">
           <v-img
             :src="post.imgSrc"
-            higth="350px"
+            height="300px"
           ></v-img>
 
           <v-card-title primary-title>
