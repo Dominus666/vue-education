@@ -51,9 +51,11 @@
 
 <script>
   export default {
-    data: () => ({
-      sideNav: false,
-    }),
+    data () {
+      return {
+        sideNav: false
+      }
+    },
     computed: {
       isUserLoggedIn () {
         return this.$store.getters.isUserLoggedIn

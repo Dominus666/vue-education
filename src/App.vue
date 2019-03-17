@@ -1,12 +1,13 @@
 <template>
   <v-app dark>
-  <Header/>
+  <Header></Header>
   </v-app>
 </template>
 
 <script>
 
 import Header from './components/header'
+
 
 export default {
   name: 'App',
@@ -15,6 +16,11 @@ export default {
   },
   data () {
     return {
+    }
+  },
+  computed: {
+    user () {
+      return this.$store.getters.user
     }
   }
 }
