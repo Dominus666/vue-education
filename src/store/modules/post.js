@@ -29,7 +29,8 @@ export default {
       const img = payload.img
       const newPost = {
         title: payload.title,
-        description: payload.description
+        description: payload.description,
+        userName: payload.userName
       }
       const post = await fb.database().ref('posts').push(payload)
       const fileData = await fb.storage().ref(`posts/${post.key}`).put(img)

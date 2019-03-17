@@ -17,6 +17,7 @@
           </v-card-title>
 
           <v-card-actions>
+            <h3>{{ post.userName }}</h3>
             <v-spacer></v-spacer>
             <v-btn flat :to="'/post/' + post.id">Read more</v-btn>
           </v-card-actions>
