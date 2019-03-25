@@ -43,7 +43,7 @@ export default {
       });
       commit('setLoading', false)
     },
-    async deletePost (context, payload) {
+    async deletePost ({commit}, payload) {
       const deletePost = await fb.database().ref('posts').once('value')
       deletePost.val()
       Object.keys(deletePost.val()).forEach(key => {
@@ -52,11 +52,17 @@ export default {
             fb.database().ref('posts').child(key).remove()
             fb.storage().ref('posts').child(key).delete()
           }
-        context.commit('deletePost', payload)
+        commit('deletePost', payload)
       })
     },
-    updatePost (context, payload) {
-      context.commit('updatePost', payload)
+    async updatePost ({commit}, {title, description, id}) {
+      commit('setLoading', true)
+      await fb.database().ref('posts').child(id).update({
+        title,
+        description
+      })
+      commit('updatePost', {title, description, id})
+      commit('setLoading', false)
     },
     async fetchPosts({commit}) {
       commit('setLoading', true)
