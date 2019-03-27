@@ -4,13 +4,19 @@
     <section mt-3 elevation-10 v-else>
       <v-layout row wrap>
         <v-flex xs12 lg6>
-          <img :src="posts.imgSrc">
+          <img :src="post.imgSrc">
         </v-flex>
         <v-flex xs12 lg6>
           <div class="post">
-            <h4 class="post-title">{{ posts.title }}</h4>
-            <p class="post-description">{{ posts.description }}</p>
+            <h4 class="post-title">{{ post.title }}</h4>
+            <p class="post-description">{{ post.description }}</p>
           </div>
+          <v-card-actions v-if="user">
+            <v-spacer></v-spacer>
+            <v-btn @click="addLikedPost">
+              <v-icon>thumb_up</v-icon>
+            </v-btn>
+          </v-card-actions>
         </v-flex>
       </v-layout>
     </section>
@@ -21,12 +27,24 @@
 export default {
   props: ['id'],
   computed: {
-    posts () {
+    post () {
       const id = this.id
       return this.$store.getters.postById(id)
     },
+    user () {
+      return this.$store.getters.user
+    },
     loading () {
       return this.$store.getters.loading
+    }
+  },
+  methods: {
+    addLikedPost () {
+      const likedPost = {
+        uid: this.user.uid,
+        id: this.post.id
+      };
+      this.$store.dispatch('addLikePost', likedPost)
     }
   }
 

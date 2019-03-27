@@ -36,6 +36,26 @@ export default {
       commit('setUser', {loginUser})
       commit('setLoading', false)
     },
+    async addLikePost({commit}, payload) {
+      commit('setLoading', true)
+      const likePost = payload.id;
+      const postVal = await fb.database().ref('users').child(`${payload.uid}/likePosts`).once('value');
+      const likePosts = postVal.val();
+      
+
+      if(likePosts !== null) {
+        const checkLikes =  Object.values(likePosts).find(key => {
+          return key === likePost
+        })
+        if(checkLikes === undefined) {
+          await fb.database().ref('users').child(`${payload.uid}/likePosts`).push(likePost)
+        }
+      }else {
+        await fb.database().ref('users').child(`${payload.uid}/likePosts`).push(likePost)
+      }
+      
+      commit('setLoading', false)
+    },
     autoLoginUser ({commit}, payload) {
       commit('setUser', payload)
     },
