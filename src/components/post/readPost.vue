@@ -46,7 +46,8 @@ export default {
       };
       this.$store.dispatch('addLikePost', likedPost)
     }
-  }
+  },
+  
 
 }
 </script>
