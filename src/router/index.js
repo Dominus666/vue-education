@@ -6,6 +6,7 @@ import Home from '@/components/Home'
 import NewPost from '@/components/post/newPost'
 import Post from '@/components/post/readPost'
 import ListPost from '@/components/post/listPost'
+import FavoritesPosts from '@/components/post/favoritesPosts'
 import AlcoCalc from '@/components/alcoCalc/alcoCalc'
 
 Vue.use(VueRouter)
@@ -41,6 +42,11 @@ export default new VueRouter ({
     path: '/list',
     props: true,
     component: ListPost
+  },
+  {
+    path: '/favorites',
+    name: 'favoritesPosts',
+    component: FavoritesPosts
   },
   {
     path: '/calc',
