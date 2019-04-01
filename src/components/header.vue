@@ -38,7 +38,7 @@
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
         <v-btn flat v-for="(link, i) in links" :key="i" :to="link.url"><v-icon left>{{ link.icon }}</v-icon>{{ link.title }}</v-btn>
-        <v-btn flat @click="onLogout" v-if="isUserLoggedIn"><v-icon left>exit_to_app</v-icon>LogOut</v-btn>
+        <v-btn flat @click="onLogout" v-if="isUserLoggedIn"><v-icon>exit_to_app</v-icon></v-btn>
       </v-toolbar-items>
     </v-toolbar>
     <v-content>

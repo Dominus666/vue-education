@@ -19,7 +19,7 @@
           <v-card-actions>
             <h2>{{ favoritesPost.userName }}</h2>
             <v-spacer></v-spacer>
-            <!-- <v-btn flat :to="'/post/' + post.id">Read more</v-btn> -->
+            <v-btn flat :to="'/post/' + favoritesPost.id">Read more</v-btn>
           </v-card-actions>
         </v-card>
       </v-flex>
@@ -39,9 +39,6 @@ export default {
     loading () {
       return this.$store.getters.loading
     }
-  },
-  created () {
-    this.$store.dispatch('fetchLikedPosts')
   }
 }
 </script>

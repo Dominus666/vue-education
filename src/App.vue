@@ -1,6 +1,6 @@
 <template>
   <v-app dark>
-  <Header></Header>
+    <Header></Header>
   </v-app>
 </template>
 
@@ -16,11 +16,6 @@ export default {
   },
   data () {
     return {
-    }
-  },
-  computed: {
-    user () {
-      return this.$store.getters.user
     }
   }
 }

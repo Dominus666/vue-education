@@ -27,6 +27,7 @@ new Vue({
       if(user) {
         fb.database().ref(`users/${user.uid}`).once('value').then(user => {
           this.$store.dispatch('autoLoginUser', user.val())
+          this.$store.dispatch('fetchFavoritesPosts')
         })
       }
     })

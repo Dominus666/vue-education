@@ -77,9 +77,9 @@ export default {
             ...post,
             id: key
           }
-        )
-        commit('loadPosts', resultPosts)
+        )      
       })
+      commit('loadPosts', resultPosts)
       commit('setLoading', false)
     }
    },

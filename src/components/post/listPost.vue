@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <div>
     <v-layout row wrap >
       <v-flex xs12 sm6 md4 lg3 padding-cusstom v-for="(post, i) in posts" :key="i">
         <v-card class="card-custom">
@@ -12,7 +12,7 @@
             <div>
               <h2>{{ post.userName }}</h2>
               <h3 class="headline mb-0">{{ post.title }}</h3>
-              <div>{{ post.description.substring(0,60) }}...</div>
+              <p>{{ post.description.substring(0,60) }}...</p>
             </div>
           </v-card-title>
           <v-card-actions>
@@ -22,8 +22,8 @@
           </v-card-actions>
         </v-card>
       </v-flex>
-    </v-layout>
-  </v-container>
+      </v-layout>
+  </div>
 </template>
 
 <script>

@@ -13,7 +13,7 @@
           </div>
           <v-card-actions v-if="user">
             <v-spacer></v-spacer>
-            <v-btn @click="addLikedPost">
+            <v-btn @click=" addFavoritePost">
               <v-icon>thumb_up</v-icon>
             </v-btn>
           </v-card-actions>
@@ -39,12 +39,12 @@ export default {
     }
   },
   methods: {
-    addLikedPost () {
-      const likedPost = {
+    addFavoritePost () {
+      const favoritePost = {
         uid: this.user.uid,
         id: this.post.id
       };
-      this.$store.dispatch('addLikePost', likedPost)
+      this.$store.dispatch('addFavoritePost', favoritePost)
     }
   },
   
