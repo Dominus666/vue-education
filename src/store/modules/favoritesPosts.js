@@ -11,27 +11,45 @@ export default {
   },
   actions: {
     async addFavoritePost({commit}, payload) {
+        commit('clearError')
         commit('setLoading', true)
-        const favoritePost = payload.id;
-        const currentDate = new Date().toString();
-        const favoritePostDate = { [favoritePost] : currentDate}
-        await fb.database().ref('users').child(`${payload.uid}/favoritesPosts`).update(favoritePostDate)
-        commit('setLoading', false)
+        try {
+          const favoritePost = payload.id;
+          const currentDate = new Date().toString();
+          const favoritePostDate = { [favoritePost] : currentDate}
+          await fb.database().ref('users').child(`${payload.uid}/favoritesPosts`).update(favoritePostDate)
+          commit('setLoading', false)
+        } catch (error) {
+          commit('setLoading', false)
+          commit('setError', error.message)
+          throw error
+        }
+        
     },
     async fetchFavoritesPosts ({commit}) {
+      commit('clearError')
       commit('setLoading', true)
-      const currentUser = this.state.user.user.uid
-      const resultFavoritePost = []
-      const idFavoritePost = await fb.database().ref(`users/${currentUser}/favoritesPosts`).once('value')
-      await Object.keys(idFavoritePost.val()).forEach( async (key)  => {
-        const currentFavoritesPosts = await fb.database().ref(`posts/${key}`).once('value')
-        resultFavoritePost.push({
-          ...currentFavoritesPosts.val(),
-          id: key
-        })
-      })
-      commit('FAVORITES_POSTS', resultFavoritePost)
-      commit('setLoading', false)
+      try {
+        const currentUser = this.state.user.user.uid
+        const resultFavoritePost = []
+        const idFavoritePost = await fb.database().ref(`users/${currentUser}/favoritesPosts`).once('value')
+        if(idFavoritePost.val() !== null) {
+          await Object.keys(idFavoritePost.val()).forEach( async (key)  => {
+            const currentFavoritesPosts = await fb.database().ref(`posts/${key}`).once('value')
+            resultFavoritePost.push({
+              ...currentFavoritesPosts.val(),
+              id: key
+            })
+          })
+        }
+        commit('FAVORITES_POSTS', resultFavoritePost)
+        commit('setLoading', false)
+      } catch (error) {
+        commit('setLoading', false)
+        commit('setError', error.message)
+        throw error
+      }
+      
     }
   },
   getters: {

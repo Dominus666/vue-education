@@ -1,6 +1,25 @@
 <template>
   <v-app dark>
     <Header></Header>
+    <div v-if="error">
+      <v-snackbar
+        :multi-line="true"
+        :timeout="5000"
+        :top="true"
+        color="error"
+        @input="closeError"
+        :value="true"
+      >
+        {{ error }}
+        <v-btn
+          dark
+          flat
+          @click.native="closeError"
+        >
+          Close
+        </v-btn>
+      </v-snackbar>
+    </div>
   </v-app>
 </template>
 
@@ -14,8 +33,14 @@ export default {
   components: {
     Header
   },
-  data () {
-    return {
+  methods: {
+    closeError () {
+      this.$store.dispatch('clearError')
+    }
+  },
+  computed: {
+    error () {
+      return this.$store.getters.error
     }
   }
 }

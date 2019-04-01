@@ -2,7 +2,7 @@
   <div>
     <v-progress-linear :indeterminate="true" v-if="loading" color="blue"></v-progress-linear>
     <v-layout row wrap v-else>
-      <v-flex xs12 sm6 md4 lg3 padding-cusstom v-for="(favoritesPost, i) in favoritesPosts" :key="i">
+      <v-flex xs12 sm6 md4 lg3 padding-custom v-for="(favoritesPost, i) in favoritesPosts" :key="i">
         <v-card class="card-custom">
           <v-img
             :src="favoritesPost.imgSrc"

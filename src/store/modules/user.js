@@ -11,30 +11,46 @@ export default {
   },
   actions: {
     async registerUser({commit}, payload) {
+      commit('clearError')
       commit('setLoading', true)
-      const registerUser = payload
-      const user = await fb.auth().createUserWithEmailAndPassword(registerUser.email, registerUser.password)
-      const uid = user.user.uid
-      registerUser.uid = uid
-      await fb.database().ref(`users/${registerUser.uid}/`).set(payload)
-      commit('setUser', {registerUser})
-      commit('setLoading', false)
+      
+      try {
+        const registerUser = payload
+        const user = await fb.auth().createUserWithEmailAndPassword(registerUser.email, registerUser.password)
+        const uid = user.user.uid
+        registerUser.uid = uid
+        await fb.database().ref(`users/${registerUser.uid}/`).set(payload)
+        commit('setUser', {registerUser})
+        commit('setLoading', false)
+      } catch(error) {
+        commit('setLoading', false)
+        commit('setError', error.message)
+        throw error
+      }
     },
 
     async loginUser({commit}, payload) {
+      commit('clearError')
       commit('setLoading', true)
-      const loginUser = payload
-      const user = await fb.auth().signInWithEmailAndPassword(loginUser.email, loginUser.password)
-      const uid = user.user.uid
-      loginUser.uid = uid
-      const currentUser = await fb.database().ref(`users/${uid}`).once('value')
-      if(currentUser.val().admin != undefined) {
-        loginUser.admin = currentUser.val().admin
-      }else {
-        loginUser.admin = false
+
+      try {
+        const loginUser = payload
+        const user = await fb.auth().signInWithEmailAndPassword(loginUser.email, loginUser.password)
+        const uid = user.user.uid
+        loginUser.uid = uid
+        const currentUser = await fb.database().ref(`users/${uid}`).once('value')
+        if(currentUser.val().admin != undefined) {
+          loginUser.admin = currentUser.val().admin
+        }else {
+          loginUser.admin = false
+        }
+        commit('setUser', {loginUser})
+        commit('setLoading', false)
+      } catch (error) {
+        commit('setLoading', false)
+        commit('setError', error.message)
+        throw error
       }
-      commit('setUser', {loginUser})
-      commit('setLoading', false)
     },
     autoLoginUser ({commit}, payload) {
       commit('setUser', payload)

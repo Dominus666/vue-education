@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-layout row wrap >
-      <v-flex xs12 sm6 md4 lg3 padding-cusstom v-for="(post, i) in posts" :key="i">
+      <v-flex xs12 sm6 md4 lg3 padding-custom v-for="(post, i) in posts" :key="i">
         <v-card class="card-custom">
           <v-img
             :src="post.imgSrc"
