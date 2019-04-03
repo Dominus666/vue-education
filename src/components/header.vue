@@ -33,13 +33,9 @@
           </v-list>
     </v-navigation-drawer>
     <v-toolbar>
-      <v-toolbar-side-icon @click="sideNav = !sideNav" class="hidden-md-and-up"></v-toolbar-side-icon>
-      <v-toolbar-title>Blog</v-toolbar-title>
+      <v-toolbar-side-icon @click="sideNav = !sideNav"></v-toolbar-side-icon>
       <v-spacer></v-spacer>
-      <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn flat v-for="(link, i) in links" :key="i" :to="link.url"><v-icon left>{{ link.icon }}</v-icon>{{ link.title }}</v-btn>
-        <v-btn flat @click="onLogout" v-if="isUserLoggedIn"><v-icon>exit_to_app</v-icon></v-btn>
-      </v-toolbar-items>
+      <h3 v-if="user">{{ user.userName }}</h3>
     </v-toolbar>
     <v-content>
       <v-container fluid>
