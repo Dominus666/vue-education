@@ -13,7 +13,7 @@ new Vue({
   store,
   
   created () {
-    var config = {
+    const config = {
       apiKey: "AIzaSyCYtNoyLbwj_O0h27Te88QpD0XWwCEhmy0",
       authDomain: "my-blog-c2c89.firebaseapp.com",
       databaseURL: "https://my-blog-c2c89.firebaseio.com",
@@ -27,7 +27,6 @@ new Vue({
       if(user) {
         fb.database().ref(`users/${user.uid}`).once('value').then(user => {
           this.$store.dispatch('autoLoginUser', user.val())
-          this.$store.dispatch('fetchFavoritesPosts')
         })
       }
     })

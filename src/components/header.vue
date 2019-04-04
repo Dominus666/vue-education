@@ -67,12 +67,14 @@
               {title: 'New Post', icon: 'add', url: '/newpost'},
               {title: 'List', icon: 'list', url: '/list'},
               {title: 'calculator', icon: 'weekend', url: '/calc'},
+              {title: 'graphics', icon: 'assessment', url: '/graphics'},
               {title: 'favorites', icon: 'favorite', url: '/favorites'}
             ] 
           }else {
             return [
               {title: 'Home', icon: 'home', url: '/'},
               {title: 'calculator', icon: 'weekend', url: '/calc'},
+              {title: 'graphics', icon: 'assessment', url: '/graphics'},
               {title: 'favorites', icon: 'favorite', url: '/favorites'}
             ]
           } 

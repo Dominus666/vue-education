@@ -8,6 +8,7 @@ import Post from '@/components/post/readPost'
 import ListPost from '@/components/post/listPost'
 import FavoritesPosts from '@/components/post/favoritesPosts'
 import AlcoCalc from '@/components/alcoCalc/alcoCalc'
+import AlcoGraphics from '@/components/alcoCalc/alcoGraphics'
 
 Vue.use(VueRouter)
 
@@ -52,6 +53,11 @@ export default new VueRouter ({
     path: '/calc',
     name: 'alcoCalc',
     component: AlcoCalc
+  },
+  {
+    path: '/graphics',
+    name: 'alcoGraphics',
+    component: AlcoGraphics
   }
 	],
 	mode: 'history'

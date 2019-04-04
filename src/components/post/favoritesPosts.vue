@@ -39,6 +39,9 @@ export default {
     loading () {
       return this.$store.getters.loading
     }
+  },
+  mounted() {
+    this.$store.dispatch('fetchFavoritesPosts')
   }
 }
 </script>

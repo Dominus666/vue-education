@@ -25,20 +25,33 @@
                           <v-text-field
                             v-model="weight"
                             label="Вес"
+                            type="number"
                           ></v-text-field>
                         </v-flex>
                         <v-flex xs5>
                           <v-text-field
                             v-model="procent"
                             label="Процент"
+                            type="number"
                           ></v-text-field>
                         </v-flex>
                         <v-flex xs5>
                           <v-text-field
                             v-model="mAlc"
                             label="Количество"
+                            type="number"
                           ></v-text-field>
                         </v-flex>
+                      </v-layout>
+                      <v-layout v-for="(alcohol, i) in alcohols" :key="i">
+                        <v-flex>
+                          Процент: {{alcohol.procent}}
+                        </v-flex>
+                        <v-spacer></v-spacer>
+                        <v-flex>
+                          Количество: {{alcohol.mAlc}}
+                        </v-flex>
+                        <v-btn @click="removeField(alcohol.alcId)">Удалить</v-btn>
                       </v-layout>
                     </v-form>
                   </v-card-text>
@@ -47,8 +60,17 @@
                       slot="activator"
                       dark
                       @click="calc"
+                      :disabled="!mAlc || !procent || !male || !weight"
                       >
-                        Click me
+                        Рассчитать
+                    </v-btn>
+                    
+                    <v-btn
+                      dark
+                      @click="addField"
+                      :disabled="!mAlc || !procent"
+                    >
+                      Добавить алкоголь
                     </v-btn>
                     <v-spacer></v-spacer>
                     ПРОМИЛЬ: {{result}} 
@@ -73,13 +95,16 @@ export default {
       procent: null,
       mAlc: null,
       result: '',
-      alco: null
+      alcohols: []
     }      
   },
   methods: {
     calc () {
-      let A = (this.mAlc * 1000) / 100 * this.procent
-    
+      let A = null
+      this.alcohols.forEach((i) => {
+        A += (i.mAlc * 1000) / 100 * i.procent
+      })
+      A += (this.mAlc * 1000) / 100 * this.procent
       let r = null
       if(this.male == 'мужчина') {
         r = 0.7
@@ -88,6 +113,35 @@ export default {
       }
       this.result = A / (this.weight * r)
       this.result = Math.round(this.result * 100) / 100
+
+      this.$store.dispatch('alcoUser', {
+          alco: this.result,
+          date: new Date(),
+          uid: this.user.uid
+
+        }
+      )
+    },
+    addField () {
+      const alcohol = {
+        procent: this.procent,
+        mAlc: this.mAlc,
+        alcId: this.alcohols.length + 1 
+      }
+      this.alcohols.push(alcohol)
+      this.mAlc = null
+      this.procent = null
+    },
+    removeField (id) {
+      const newalcohols = this.alcohols.filter((i) => {
+        return i.alcId !== id
+      })
+      this.alcohols = newalcohols
+    }
+  },
+  computed: {
+    user () {
+      return this.$store.getters.user
     }
   }
 }
